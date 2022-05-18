@@ -86,12 +86,46 @@ export class BaseHTMLElement extends HTMLElement{
 	}
 }
 
+const supportedEvents = [
+'abort', 'afterprint', 'animationend', 'animationiteration', 'animationstart', 
+'beforeprint', 'beforeunload', 'blur', 'canplay', 'canplaythrough', 'change', 'click',
+'contextmenu', 'copy', 'cut', 'dblclick', 'drag', 'dragend', 'dragenter', 'dragleave',
+'dragover', 'dragstart', 'drop', 'durationchange', 'ended', 'error', 'focus', 'focusin',
+'focusout', 'fullscreenchange', 'fullscreenerror', 'hashchange', 'input', 'invalid',
+'keydown', 'keypress', 'keyup', 'load', 'loadeddata', 'loadedmetadata', 'loadstart',
+'message', 'mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseover', 'mouseout',
+'mouseup', 'mousewheel', 'offline', 'online', 'open', 'pagehide', 'pageshow', 'paste',
+'pause', 'play', 'playing', 'popstate', 'progress', 'ratechange', 'resize', 'reset', 
+'scroll', 'search', 'seeked', 'seeking', 'select', 'show', 'stalled', 'storage', 'submit', 
+'suspend', 'timeupdate', 'toggle', 'touchcancel', 'touchend', 'touchmove', 'touchstart', 
+'transitionend', 'unload', 'volumechange', 'waiting', 'wheel'
+].map(it=>`[x-${it}]`)
+
+class XHTMLElement extends BaseHTMLElement{
+	onRendered(){
+		for (let xElement of this.$$(supportedEvents)){
+			for (let attr of xElement.attributes){
+				let attrName = attr.name
+				if(attrName.includes('x-')){
+					let eventName=attrName.replace('x-',"")
+					let func = this[xElement.getAttribute(attrName)]
+
+					xElement.addEventListener(eventName,func.bind(this))
+				}
+			}
+		}
+	}
+}
+
 export const defineTag=(name,definition)=>{
 	if(customElements.get(name)) {
 		return
 	}
 	customElements.define(name,definition)
 }
+
+export const cssLink = (path)=>`<link rel="stylesheet" type="text/css" href="${path}.css">`
+
 
 /**
 * Example:
