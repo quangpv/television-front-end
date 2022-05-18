@@ -68,10 +68,11 @@ export class BaseHTMLElement extends HTMLElement{
 
 	render(){
 		if(!this.shouldRender()){
-			return
+			return false
 		}
 		this.#getContainer().innerHTML = this.build()
 		this.onRendered()
+		return true
 	}
 	shouldRender(){
 		return true
@@ -103,7 +104,9 @@ const supportedEvents = [
 
 export class XHTMLElement extends BaseHTMLElement{
 	render(){
-		super.render()
+		if(!super.render()){
+			return
+		}
 		for (let xElement of this.$$(supportedEvents)){
 			for (let attr of xElement.attributes){
 				let attrName = attr.name
