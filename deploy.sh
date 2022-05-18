@@ -1,15 +1,19 @@
 PYTHON_CODE="""
 #!/usr/bin/env python3
-from http.server import HTTPServer, SimpleHTTPRequestHandler, test
-import sys
+# encoding: utf-8
 
-class CORSRequestHandler (SimpleHTTPRequestHandler):
-    def end_headers (self):
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+
+class CORSRequestHandler(SimpleHTTPRequestHandler):
+    def end_headers(self):
         self.send_header('Access-Control-Allow-Origin', '*')
-        SimpleHTTPRequestHandler.end_headers(self)
+        self.send_header('Access-Control-Allow-Methods', 'GET')
+        self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate')
+        return super(CORSRequestHandler, self).end_headers()
 
-if __name__ == '__main__':
-    test(CORSRequestHandler, HTTPServer, port=int(sys.argv[1]) if len(sys.argv) > 1 else 8000)
+
+httpd = HTTPServer(('localhost', 8003), CORSRequestHandler)
+httpd.serve_forever()
 """
 
 nohup python3 <<< "$PYTHON_CODE" & 
