@@ -1,1 +1,1 @@
-python -m http.server 8001
+nohup python -m http.server 8001 &
