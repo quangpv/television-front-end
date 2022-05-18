@@ -20,11 +20,12 @@ customElements.define('home-page',class extends BaseHTMLElement {
 	onSearch(text){
 		if(text.length == 0){
 			this.items = this.originalItems;
-			return
+		}else{
+			text = text.toLowerCase()
+			this.items = this.originalItems.filter(it=>it.title.toLowerCase().includes(text) || it.id.includes(text))	
 		}
-		text = text.toLowerCase()
-		this.items = this.originalItems.filter(it=>it.title.toLowerCase().includes(text) || it.id.includes(text))
-		this.$('list-channel').submit(this.items)
+		
+		this.$('list-channel')?.submit(this.items)
 	}
 
 	onRefreshClick(){

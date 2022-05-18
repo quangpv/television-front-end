@@ -57,6 +57,8 @@ defineTag('top-bar',class extends BaseHTMLElement{
 		this.$('#logout').onclick=()=>this.findCallback('logout-click')?.()
 		this.$('#refresh').onclick=()=>this.findCallback('refresh-click')?.()
 		this.$('h1').onclick=()=>this.findCallback('title-click')?.()
-		this.$('input').onkeyup=(e)=>this.findCallback('search')?.(e.currentTarget.value)
+		let edtSearch=this.$('input')
+		edtSearch.onsearch=(e)=>this.findCallback('search')?.(e.currentTarget.value)
+		edtSearch.onkeyup=(e)=>this.findCallback('search')?.(e.currentTarget.value)
 	}
 })

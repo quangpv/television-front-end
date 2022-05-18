@@ -2,6 +2,8 @@ import {BaseHTMLElement} from  "../core.js"
 
 customElements.define('register-page',class extends BaseHTMLElement{
 	build(){
+		let userName=localStorage.getItem('user-name')
+
 		const style = `
 		<style>
 		.container{
@@ -40,7 +42,8 @@ customElements.define('register-page',class extends BaseHTMLElement{
 		<button id='register'>Submit</button>
 		`
 		const codeSection = `
-		<label>Your code</label>
+		<h1>Wellcome ${userName}</h1>
+		<label>Your login code</label>
 		<p>${this.code}</p>
 		<button id='gotologin'>Go to login</button>
 		`
@@ -63,6 +66,7 @@ customElements.define('register-page',class extends BaseHTMLElement{
 			if(edtValue.value.length <= 0){
 				edtError.innerHTML = 'Name should not be blank'
 			}else{
+				localStorage.setItem('user-name',edtValue.value)
 				this.code = "1234"
 				this.render()
 			}
