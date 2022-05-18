@@ -101,7 +101,7 @@ const supportedEvents = [
 'transitionend', 'unload', 'volumechange', 'waiting', 'wheel'
 ].map(it=>`[x-${it}]`)
 
-class XHTMLElement extends BaseHTMLElement{
+export class XHTMLElement extends BaseHTMLElement{
 	onRendered(){
 		for (let xElement of this.$$(supportedEvents)){
 			for (let attr of xElement.attributes){
