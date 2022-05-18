@@ -102,7 +102,8 @@ const supportedEvents = [
 ].map(it=>`[x-${it}]`)
 
 export class XHTMLElement extends BaseHTMLElement{
-	onRendered(){
+	render(){
+		super.render()
 		for (let xElement of this.$$(supportedEvents)){
 			for (let attr of xElement.attributes){
 				let attrName = attr.name
