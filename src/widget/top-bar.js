@@ -10,6 +10,7 @@ defineTag('top-bar',class extends BaseHTMLElement{
 			align-items:center;
 			justify-content:start;
 			gap:20px;
+			flex-wrap:wrap;
 		}
 		h1 {
 			font-size:18px;
@@ -24,6 +25,7 @@ defineTag('top-bar',class extends BaseHTMLElement{
 		.action{
 			margin-left:auto;
 			display:flex;
+			flex-wrap:wrap;
 			gap:10px;
 		}
 		input{
